@@ -3,23 +3,24 @@ import os
 import yt_dlp
 from datetime import timedelta
 from pystyle import Add, Center, Anime, Colors, Colorate, Write, System, Col
-
+import time
 System.Clear()
-System.Title("EF5 Downloader")
-System.Size(70, 20)
+System.Size(60, 20)
+System.Title("EF5 PRESS ENTER..")
+System.Size(60, 20)
 
 banner = r"""
-███████ ███████ ███████ 
-██      ██      ██      
-█████   █████   ███████ 
-██      ██           ██ 
-███████ ██      ███████  
+███████ ███████ ███████
+██      ██      ██     
+█████   █████   ███████
+██      ██           ██
+███████ ██      ███████ 
 """[1:]
 
 
+
 Anime.Fade(Center.Center(banner), Colors.rainbow, Colorate.Vertical, enter=True)
-
-
+System.Title("EF5 Downloader")
 
 
 def download_video(url, save_path='./output', file_format='mp4'):
@@ -46,12 +47,10 @@ def download_video(url, save_path='./output', file_format='mp4'):
                     Write.Print(f'Format: {file_format}\n', Colors.white_to_red, interval=0.005)
                     Write.Print(f'Audio: No\n', Colors.white_to_red, interval=0.005)
                     Write.Print(f'Length: {str(timedelta(seconds=yt.length))}\n', Colors.white_to_red, interval=0.005)
-
                     for stream in video_streams:
                         if stream.resolution not in unique_qualities:
                             unique_qualities.add(stream.resolution)
-                            print(f"{len(unique_qualities)}. {stream.resolution}")
-
+                            print(f"{len(unique_qualities)}.{stream.resolution}")
                     selected_quality = int(Write.Input("Video Quality: ", Colors.white_to_green, interval=0.005)) - 1
 
                     if 0 <= selected_quality < len(video_streams):
@@ -71,7 +70,7 @@ def download_video(url, save_path='./output', file_format='mp4'):
                 print(f"Downloading..")
 
                 selected_stream.download(save_path)
-                Write.Print('Saved --> output', Colors.white_to_green, interval=0.001)
+                Write.Print('Saved --> output\n', Colors.white_to_green, interval=0.001)
 
             else:
                 video_streams = yt.streams.filter(file_extension=file_format).order_by('resolution').desc()
@@ -114,6 +113,7 @@ def download_video(url, save_path='./output', file_format='mp4'):
             Write.Print(f'Title: {yt.title}\n', Colors.white_to_red, interval=0.005)
             Write.Print(f'Format: {file_format}\n', Colors.white_to_red, interval=0.005)
             Write.Print(f'Audio: Yes\n', Colors.white_to_red, interval=0.005)
+            Write.Print(f'KBPS: 320\n', Colors.white_to_red, interval=0.005)
             Write.Print(f'Length: {str(timedelta(seconds=yt.length))}\n', Colors.white_to_red, interval=0.005)
             Write.Print(f'Note: Don\'t worry about ERROR\n', Colors.white_to_red, interval=0.005)
             download_audio_with_yt_dlp(url, save_path)
@@ -161,6 +161,8 @@ if __name__ == "__main__":
     save_path = './output'
 
     download_video(youtube_url, save_path, file_format)
+    time.sleep(2)
+    os.system("cls")
 #by .ef5
 #discord: .ef5
 #github.com/venuzik
